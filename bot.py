@@ -30,3 +30,16 @@ class Game:
             self.game = uno.Game()
 
 
+intents = discord.Intents.default()
+intents.guilds = True
+intents.members = True
+intents.message_content = True
+client = discord.Client(intents=intents)
+commands = discord.app_commands.CommandTree(client)
+command_list = []
+def run():
+    @client.event
+    async def on_ready():
+        pass
+
+    client.run(token)
