@@ -37,9 +37,12 @@ intents.message_content = True
 client = discord.Client(intents=intents)
 commands = discord.app_commands.CommandTree(client)
 command_list = []
+bot = Bot()
 def run():
     @client.event
     async def on_ready():
+        for guild in client.guilds:
+            bot.guilds.append(Guild(guild))
         pass
 
     client.run(token)
