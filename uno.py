@@ -9,8 +9,11 @@
 # 0: Normal
 # 1: Reverse
 # 2: Draw
-# 3: Wild
-# 4: Wild Draw
+# 3: Skip
+# 4: Wild
+# 5: Wild Draw
+
+# Number 10 Represents an Action Card
 
 
 class Game:
@@ -22,31 +25,22 @@ class Game:
 
     def __init__(self):
         def gen_deck():
-            deck = []                                                           # Creates Deck List
+            deck = []
+            for number in range(11):
+                for color in range(5):
+                    for kind in range(6):
+                        if number < 10 and kind == 0:
+                            if color > 0:
+                                deck.append(self.Card(color, number))
+                                if number > 0:
+                                    deck.append(self.Card(color, number))
+                        elif number == 10:
+                            if 0 < kind < 4 and color > 0:
+                                for i in range(2):
+                                    deck.append(self.Card(color, number, kind))
+                            elif kind > 3 and color == 0:
+                                for i in range(4):
+                                    deck.append(self.Card(color, number, kind))
 
-            for number in range(10):                                            # Loops Through Each Number
-                for color in range(5):                                              # Loops Through Each Color
-                    if color > 0:                                                       # If Color isn't Wild
-                        deck.append(self.Card(color, number))                               # Add Card to Deck
-                        print(f"C:{color} N:{number}")
-                        if number != 0:                                                     # If Card isn't 0
-                            deck.append(self.Card(color, number))                               # Add Another Card
-                            print(f"C:{color} N:{number}")
-
-            for card in range(5):                                               # Loops Through Each Card Type
-                for color in range(5):                                              # Loops Through Each Color
-                    if color == 0 and card == 4:                                        # If Card is Wild Draw
-                        for i in range(4):                                                  #
-                            deck.append(self.Card(color, 10, card))                         # Adds Card 4 Times
-                            print(f"C:{color} T:{card}")
-                    elif card == 3:                                                     # Else If Type is Wild
-                        for i in range(4):  # Loops 4 Times                                 #
-                            deck.append(self.Card(color, 10, card))                         # Adds Card 4 Times
-                            print(f"C:{color} T:{card}")
-                    elif card != 3:                                                     # Else If Type isn't Wild
-                        for i in range(2):  # Loops Twice                                   #
-                            deck.append(self.Card(color, 10, card))                         # Adds Card Twice
-                            print(f"C:{color} T:{card}")
             return deck
-
         self.deck = gen_deck()

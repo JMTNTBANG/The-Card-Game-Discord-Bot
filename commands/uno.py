@@ -20,4 +20,3 @@ def import_command():
                                 description='React Below to join'))
         await message.add_reaction('✅')
         bot.get_guild(interaction.guild).games.append(bot.Game(0, interaction.user))
-        pass
