@@ -39,6 +39,15 @@ client = discord.Client(intents=intents)
 commands = discord.app_commands.CommandTree(client)
 command_list = []
 bot = Bot()
+
+
+def get_guild(guild: discord.Guild):
+    for i in bot.guilds:
+        i: Guild
+        if i.guild == guild:
+            return i
+
+
 def run():
     @client.event
     async def on_ready():
