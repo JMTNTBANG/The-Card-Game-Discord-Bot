@@ -41,6 +41,16 @@ bot = Bot()
 def run():
     @client.event
     async def on_ready():
+        for command in os.listdir('commands'):
+            if command.endswith('py'):
+                if '__init__.py' not in command:
+                    if 'template.py' not in command:
+                        if command not in command_list:
+                            exec(f'import commands.{command[:-3]}')
+                            exec(
+                                f'commands.{command[:-3]}.import_command()')
+                            command_list.append(command)
+        await commands.sync()
         for guild in client.guilds:
             bot.guilds.append(Guild(guild))
         pass
